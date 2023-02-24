@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Courier of this order</title>
+</head>
+<body>
+<a th:href="@{/courier/{phonenumber}(phonenumber = ${courier.getPhonenumber()})}"
+   th:text = "'Courier phonenumber : ' + ${courier.getPhonenumber()}">text
+</a>
+
+</body>
+</html>

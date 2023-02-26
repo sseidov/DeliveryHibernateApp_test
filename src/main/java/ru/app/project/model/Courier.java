@@ -1,15 +1,14 @@
-package ru.app.project.entity;
+package ru.app.project.model;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "customers")
-public class Customer {
+@Table(name = "couriers")
+public class Courier {
     @Id
     @Column(name = "phonenumber", nullable = false)
     private String phonenumber;
@@ -19,22 +18,22 @@ public class Customer {
     private String firstname;
     @Column(name = "lastname", nullable = false)
     private String lastname;
-    @Column(name = "email", nullable = false)
-    private String email;
+    @Column(name = "deliverytype", nullable = false)
+    private String deliverytype;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "courier")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    private Set<Order> orders = new HashSet<>();
+    private List<Order> orders = new ArrayList<>();
 
-    public Customer() {
+    public Courier() {
     }
 
-    public Customer(String phonenumber, String password, String firstname, String lastname, String email) {
+    public Courier(String phonenumber, String password, String firstname, String lastname, String deliverytype) {
         this.phonenumber = phonenumber;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.email = email;
+        this.deliverytype = deliverytype;
     }
 
     public String getPhonenumber() {
@@ -69,19 +68,19 @@ public class Customer {
         this.lastname = lastname;
     }
 
-    public String getEmail() {
-        return email;
+    public String getDeliverytype() {
+        return deliverytype;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setDeliverytype(String deliverytype) {
+        this.deliverytype = deliverytype;
     }
 
-    public Set<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Set<Order> orders) {
+    public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
     }
 }

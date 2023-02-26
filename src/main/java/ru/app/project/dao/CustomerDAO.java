@@ -6,8 +6,8 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import ru.app.project.entity.Customer;
-import ru.app.project.entity.Dish;
+import ru.app.project.model.Customer;
+import ru.app.project.model.Order;
 
 import java.util.List;
 
@@ -39,7 +39,7 @@ public class CustomerDAO {
     }
 
     @Transactional
-    public void updateCustomer( String email, Customer customer) {
+    public void update(String email, Customer customer) {
         Session session = sessionFactory.getCurrentSession();
 
         Query sessionQuery  = session.createQuery("from Customer where email=:email");
@@ -53,5 +53,17 @@ public class CustomerDAO {
         Session session = sessionFactory.getCurrentSession();
         Customer customer = getCustomerByEmail(email);
         session.remove(session.get(Customer.class, customer.getPhonenumber()));
+    }
+
+    @Transactional
+    public List<Order> getCustomerOrdersDate(String phoneNumber){
+        Session session = sessionFactory.getCurrentSession();
+        Query sessionQuery  = session.createQuery("from Customer where phonenumber=:phoneNumber");
+        sessionQuery.setParameter("phoneNumber", phoneNumber);
+        Customer customer = (Customer) sessionQuery.uniqueResult();
+
+        Query query = session.createQuery("select o from Order o where o.customer=:customer");
+        query.setParameter("customer", customer);
+        return query.getResultList();
     }
 }

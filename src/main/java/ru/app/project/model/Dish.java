@@ -1,7 +1,12 @@
-package ru.app.project.entity;
+package ru.app.project.model;
+
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "dishes")
@@ -22,6 +27,10 @@ public class Dish {
 
     @Column(name = "weight", nullable = false)
     private int weight;
+
+    @OneToMany(mappedBy = "dish")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    private List<OrderDish> dishOrders = new ArrayList<>();
 
     public Dish() {
     }
@@ -67,5 +76,18 @@ public class Dish {
 
     public void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Dish dish = (Dish) o;
+        return id == dish.id && weight == dish.weight && Objects.equals(name, dish.name) && Objects.equals(ingredients, dish.ingredients) && Objects.equals(price, dish.price) && Objects.equals(dishOrders, dish.dishOrders);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, ingredients, price, weight, dishOrders);
     }
 }

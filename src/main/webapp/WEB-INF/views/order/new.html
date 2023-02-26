@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new Dish</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/order}" th:object="${orderDTO}">
+    <label for="date">Enter delivery date: </label>
+    <input type="text" th:field="*{date}" id="date"/>
+    <br/>
+    <label for="customerPhoneNumber">Enter customers phone number: </label>
+    <input type="text" th:field="*{customerPhoneNumber}" id="customerPhoneNumber"/>
+    <br/>
+    <label for="courierPhoneNumber">Enter courier phone number: </label>
+    <input type="text" th:field="*{courierPhoneNumber}" id="courierPhoneNumber"/>
+    <br/>
+    <br/>
+    <input type="submit" value="ADD">
+</form>
+</body>
+</html>

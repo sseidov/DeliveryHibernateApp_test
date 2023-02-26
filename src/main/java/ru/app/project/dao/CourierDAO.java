@@ -6,12 +6,9 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import ru.app.project.entity.Courier;
-import ru.app.project.entity.Order;
-
-import java.util.HashSet;
+import ru.app.project.model.Courier;
+import ru.app.project.model.Order;
 import java.util.List;
-import java.util.Set;
 
 @Component
 public class CourierDAO {
@@ -31,9 +28,8 @@ public class CourierDAO {
         sessionFactory.getCurrentSession().save(courier);
     }
 
-
     @Transactional(readOnly = true)
-    public Courier getCourierByPhonenumber(String phonenumber){
+    public Courier getCourierByPhoneNumber(String phonenumber){
         Session session = sessionFactory.getCurrentSession();
         Query sessionQuery  = session.createQuery("from Courier where phonenumber=:phonenumber");
         sessionQuery.setParameter("phonenumber", phonenumber);
@@ -43,7 +39,6 @@ public class CourierDAO {
     @Transactional
     public void update( String phonenumber, Courier courier) {
         Session session = sessionFactory.getCurrentSession();
-
         Query sessionQuery  = session.createQuery("from Courier where phonenumber=:phonenumber");
         sessionQuery.setParameter("phonenumber", phonenumber);
         Courier courierToBeUpdated = (Courier) sessionQuery.uniqueResult();
@@ -52,24 +47,16 @@ public class CourierDAO {
     @Transactional
     public void delete(String phonenumber){
         Session session = sessionFactory.getCurrentSession();
-        Courier customer = getCourierByPhonenumber(phonenumber);
+        Courier customer = getCourierByPhoneNumber(phonenumber);
         session.remove(session.get(Courier.class, customer.getPhonenumber()));
     }
 
     @Transactional
-    public Set<Order> getThisOrderCourier(String phonenumber){
-        System.out.println("______________________________________________________");
-        Set<Order> orderSet = new HashSet<>();
+    public List<Order> getCourierOrdersDate(String phonenumber){
         Session session = sessionFactory.getCurrentSession();
+        Courier courier = getCourierByPhoneNumber(phonenumber);
         Query query = session.createQuery("select o from Order o where o.courier=:courier");
-        query.setParameter("courier", phonenumber);
-
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!! " + query.getResultList().size());
-
-        System.out.println(query.uniqueResult().getClass());
-        System.out.println(query.uniqueResult());
-        orderSet = (Set<Order>) query.getResultList();
-//        orderSet = (Set<Order>) query.getResultList();
-        return orderSet;
+        query.setParameter("courier", courier);
+        return query.getResultList();
     }
 }

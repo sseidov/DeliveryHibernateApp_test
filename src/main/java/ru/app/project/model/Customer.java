@@ -1,14 +1,14 @@
-package ru.app.project.entity;
+package ru.app.project.model;
 
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "couriers")
-public class Courier {
+@Table(name = "customers")
+public class Customer {
     @Id
     @Column(name = "phonenumber", nullable = false)
     private String phonenumber;
@@ -18,22 +18,22 @@ public class Courier {
     private String firstname;
     @Column(name = "lastname", nullable = false)
     private String lastname;
-    @Column(name = "deliverytype", nullable = false)
-    private String deliverytype;
+    @Column(name = "email", nullable = false)
+    private String email;
 
-    @OneToMany(mappedBy = "courier")
+    @OneToMany(mappedBy = "customer")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    private Set<Order> orders = new HashSet<>();
+    private List<Order> orders = new ArrayList<>();
 
-    public Courier() {
+    public Customer() {
     }
 
-    public Courier(String phonenumber, String password, String firstname, String lastname, String deliverytype) {
+    public Customer(String phonenumber, String password, String firstname, String lastname, String email) {
         this.phonenumber = phonenumber;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.deliverytype = deliverytype;
+        this.email = email;
     }
 
     public String getPhonenumber() {
@@ -68,19 +68,20 @@ public class Courier {
         this.lastname = lastname;
     }
 
-    public String getDeliverytype() {
-        return deliverytype;
+    public String getEmail() {
+        return email;
     }
 
-    public void setDeliverytype(String deliverytype) {
-        this.deliverytype = deliverytype;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public Set<Order> getOrders() {
+    public List<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(Set<Order> orders) {
+    public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
+
 }

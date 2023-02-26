@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список всех заказов</title>
+</head>
+<body>
+
+<div th:each = "order: ${orders}">
+    <a th:href="@{/order/{id}(id = ${order.getId()})}"
+       th:text="'Order ID = ' + ${order.getId()}">text</a>
+    <a th:href="@{/customer/{email}(email = ${order.getCustomer().getEmail()})}"
+       th:text = "'Customer phone number: ' + ${order.getCustomer().getPhonenumber()}">text</a>
+</div>
+<br/>
+<hr/>
+<a href="/order/new">Create new order</a>
+</body>
+</html>

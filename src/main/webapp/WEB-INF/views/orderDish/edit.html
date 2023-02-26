@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update quantity of dish</title>
+</head>
+<body>
+<form th:method="PATCH" th:action="@{/orderDish/{id}(id=${orderDishDTO.getId()})}" th:object="${orderDishDTO}">
+    <label for="quantity">Enter quantity: </label>
+    <input type="text" th:field="*{quantity}" id="quantity"/>
+    <br/>
+    <input type="submit" value="UPDATE">
+    <br/>
+    <a th:href="@{/order/all}">Back</a>
+</form>
+</body>
+</html>

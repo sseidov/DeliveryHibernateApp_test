@@ -6,7 +6,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import ru.app.project.entity.Dish;
+import ru.app.project.model.Dish;
 
 import java.util.List;
 

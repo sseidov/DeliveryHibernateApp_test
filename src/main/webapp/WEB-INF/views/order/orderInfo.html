@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://thymeleaf.org ">
+<head>
+  <meta charset="UTF-8">
+  <title>Блюдо</title>
+</head>
+<body>
+<p th:text="'Order id: ' + ${order.getId()}">value</p>
+<p th:text="'Order Date: ' + ${order.getDate()}">value</p>
+
+<a th:href="@{/order/{id}/edit(id=${order.getId()})}">Edit</a>
+<br/>
+<a th:href="@{/order/all}">All orders</a>
+<br/>
+
+
+<form th:method="DELETE" th:action="@{/order/{id}(id=${order.getId()})}">
+  <input type="submit" value="Delete"/>
+</form>
+</body>
+</html>

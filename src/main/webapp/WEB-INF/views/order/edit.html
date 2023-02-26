@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Update order</title>
+</head>
+<body>
+<form th:method="PATCH" th:action="@{/order/{id}(id=${orderDTO.getId()})}" th:object="${orderDTO}">
+  <label for="date">Enter date: </label>
+  <input type="text" th:field="*{date}" id="date"/>
+  <br/>
+  <input type="submit" value="UPDATE">
+  <br/>
+  <a th:href="@{/order/all}">Back</a>
+</form>
+</body>
+</html>

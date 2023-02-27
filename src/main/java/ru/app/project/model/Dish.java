@@ -42,6 +42,14 @@ public class Dish {
         this.weight = weight;
     }
 
+    public List<OrderDish> getDishOrders() {
+        return dishOrders;
+    }
+
+    public void setDishOrders(List<OrderDish> dishOrders) {
+        this.dishOrders = dishOrders;
+    }
+
     public int getId() {
         return id;
     }

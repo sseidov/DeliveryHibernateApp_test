@@ -12,6 +12,7 @@ import java.util.List;
 
 @Component
 public class CourierDAO {
+
     private final SessionFactory sessionFactory;
 
     @Autowired

@@ -78,6 +78,14 @@ public class Order {
         this.courier = courier;
     }
 
+    public List<OrderDish> getOrderDishes() {
+        return orderDishes;
+    }
+
+    public void setOrderDishes(List<OrderDish> orderDishes) {
+        this.orderDishes = orderDishes;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

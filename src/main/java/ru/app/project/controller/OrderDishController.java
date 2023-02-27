@@ -18,10 +18,10 @@ public class OrderDishController {
     }
 
 
-    @GetMapping("/all/{orderID}")
+    @GetMapping("/{orderID}/dishList")
     private String getAll(Model model, @PathVariable("orderID") int orderID){
-        model.addAttribute("dishes", orderDishService.getAllDishesInOrder(orderID));
-        return "orderDish/all";
+        model.addAttribute("orderDish", orderDishService.getAllDishesInOrder(orderID));
+        return "orderDish/listOfDishesInOrder";
     }
 
     @GetMapping("/new")
@@ -35,21 +35,26 @@ public class OrderDishController {
     public String create(@ModelAttribute("orderDishDTO") OrderDishDTO orderDishDTO) {
         orderDishService.save(orderDishDTO);
 //      change
-        return "redirect:/orderDish/add";
+        return "redirect:/order/all";
     }
 
     @GetMapping("/{id}/edit")
     public String update(Model model, @PathVariable("id") int id){
-        model.addAttribute("orderDishDTO", new OrderDishDTO());
+        System.out.println(id);
+        model.addAttribute("orderDishDTO", new OrderDishDTO(id));
         return "orderDish/edit";
     }
 
     @PatchMapping("/{id}")
     public String upd(@ModelAttribute("orderDishDTO") OrderDishDTO orderDishDTO, @PathVariable("id") int id){
-        orderDishDTO.setId(id);
-        orderDishService.update(id, orderDishDTO);
+        orderDishService.update(orderDishDTO.getId(), orderDishDTO);
 //      change
         return "redirect:/order/all";
     }
 
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") int id){
+        orderDishService.delete(id);
+        return "redirect:/order/all";
+    }
 }

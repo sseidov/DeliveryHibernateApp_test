@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Блюда в заказе</title>
+</head>
+<body>
+<div th:each = "dish: ${orderDish}">
+  <a th:href="@{/dish/{name}(name=${dish.getDish().getName()})}" th:text = "'Dish name: ' + ${dish.getDish().getName()} +' Quantity = ' + ${dish.getQuantity()}">text</a>
+
+  <form th:method="DELETE" th:action="@{/orderDish/{id}(id=${dish.getId()})}">
+    <input type="submit" value="Delete"/>
+  </form>
+
+</div>
+<br/>
+</body>
+</html>

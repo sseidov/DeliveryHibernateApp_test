@@ -9,6 +9,8 @@
 <p th:text="'Order id: ' + ${order.getId()}">value</p>
 <p th:text="'Order Date: ' + ${order.getDate()}">value</p>
 
+<a th:href="@{/orderDish/{orderID}/dishList(orderID=${order.getId()})}">Dishes in order</a>
+<br/>
 <a th:href="@{/order/{id}/edit(id=${order.getId()})}">Edit</a>
 <br/>
 <a th:href="@{/order/all}">All orders</a>

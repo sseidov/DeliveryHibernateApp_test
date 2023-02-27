@@ -10,6 +10,10 @@ public class OrderDishDTO {
     public OrderDishDTO() {
     }
 
+    public OrderDishDTO(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

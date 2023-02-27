@@ -34,15 +34,20 @@ public class OrderDishDAO {
         orderDish.setDish(dish);
         orderDish.setQuantity(orderDishDTO.getQuantity());
 
+        order.getOrderDishes().add(orderDish);
+        dish.getDishOrders().add(orderDish);
         session.save(orderDish);
     }
     @Transactional
     public void update(int id, OrderDishDTO orderDishDTO) {
         Session session = sessionFactory.getCurrentSession();
-        Query sessionQuery  = session.createQuery("from OrderDish where id=:id");
+        Query sessionQuery  = session.createQuery("from OrderDish where OrderDish.id=:id");
         sessionQuery.setParameter("id", id);
-
         OrderDish orderDish = (OrderDish) sessionQuery.uniqueResult();
+
+        System.out.println(orderDish.getId());
+        System.out.println(orderDish.getQuantity());
+        System.out.println("123");
         orderDish.setQuantity(orderDishDTO.getQuantity());
     }
 
@@ -53,10 +58,10 @@ public class OrderDishDAO {
     }
 
     @Transactional
-    public List<Dish> getAllDishesInOrder(int orderID) {
+    public List<OrderDish> getAllDishesInOrder(int orderID) {
         Session session = sessionFactory.getCurrentSession();
         Order order = session.get(Order.class, orderID);
-        Query query = session.createQuery("select OrderDish from OrderDish o where o.order=:order");
+        Query query = session.createQuery("select o from OrderDish o where o.order=:order");
         query.setParameter("order", order);
         return query.getResultList();
     }
